@@ -37,6 +37,50 @@ def test_etheraldict_special(provide_dict: EtheralDict):
     assert 1 not in provide_dict
     assert 2 not in provide_dict
 
+input_readme = """
+foo
+    bar
+        baz
+hello
+    world
+    amy
+        bob
+"""
+dict_readme = {
+    "name": "root",
+    "children": [
+        {
+            "name": "foo",
+            "children": [
+                {
+                    "name": "bar",
+                    "children": [
+                        {
+                            "name": "baz"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "hello",
+            "children": [
+                {
+                    "name": "world"
+                },
+                {
+                    "name": "amy",
+                    "children": [
+                        {
+                            "name": "bob"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
 siblings = {
     "name": "root",
     "children": [{
@@ -124,6 +168,9 @@ foo1
         baz1
 """, None
 ),
+(
+    input_readme, dict_readme
+)
 ]
 
 @pytest.mark.parametrize('input_text,expected_json', args)
